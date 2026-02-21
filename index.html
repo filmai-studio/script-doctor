@@ -392,7 +392,6 @@
       background: var(--surface-soft);
     }
 
-
     .diagnostic-engine {
       padding-top: 1.2rem;
     }
@@ -626,8 +625,6 @@
 
     ol.steps { padding-left: 1.2rem; }
 
-
-
     .pill-soon {
       display: inline-block;
       margin-left: 0.55rem;
@@ -707,15 +704,6 @@
       padding: 0.25rem 0.6rem;
       font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
     }
-      right: 12px;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.78rem;
-      border-radius: 999px;
-      padding: 0.25rem 0.6rem;
-      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
-    }
 
     .price {
       font-size: 1.95rem;
@@ -724,7 +712,6 @@
       margin: 0.4rem 0;
       font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
-
 
     .pricing-note,
     .pricing-footnote {
@@ -941,7 +928,6 @@
       </div>
     </section>
 
-
     <section class="diagnostic-engine" id="diagnostic-engine">
       <div class="container">
         <h2>The Diagnostic Engine</h2>
@@ -999,15 +985,16 @@
       </div>
     </section>
 
-    <section class="social-strip" aria-label="Social proof">
+    <section class="social-strip" aria-label="Who it’s built for">
       <div class="container">
-        <p class="section-kicker">// 01 Credibility</p>
-        <p><strong>Used by indie filmmakers, student directors, and creators shipping short films on tight schedules.</strong></p>
-        <div class="logos" aria-label="Sample partner logos">
-          <div class="logo-pill">FILM LAB</div>
-          <div class="logo-pill">INDIE CUT</div>
-          <div class="logo-pill">SHORTS DAILY</div>
-          <div class="logo-pill">CAMPUS CINEMA</div>
+        <p class="section-kicker">// 01 Built For</p>
+        <h2>Who it’s built for</h2>
+        <p>Made for creators shipping 1–5 minute shorts on tight timelines.</p>
+        <div class="logos" aria-label="Who it’s built for">
+          <div class="logo-pill">AI filmmakers</div>
+          <div class="logo-pill">Indie filmmakers</div>
+          <div class="logo-pill">Film students</div>
+          <div class="logo-pill">YouTube short creators</div>
         </div>
       </div>
     </section>
@@ -1079,7 +1066,6 @@
         </div>
       </div>
     </section>
-
 
     <section class="roadmap">
       <div class="container">
@@ -1157,7 +1143,6 @@ Result: tighter pacing for 1–5 minute runtime.</div>
               <li>Custom fix instructions</li>
               <li>All genres and runtimes (1–5 min)</li>
               <li>Copy + paste export</li>
-              <li>AI Shot Director access</li>
             </ul>
             <p><a class="btn btn-secondary" href="https://filmai.abacusai.app/">Sign Up Free</a></p>
           </article>
@@ -1173,7 +1158,6 @@ Result: tighter pacing for 1–5 minute runtime.</div>
               <li>All genres and runtimes (1–5 min)</li>
               <li>Copy + paste export</li>
               <li>Script history saved</li>
-              <li>70% OFF AI Shot Director subscriptions</li>
             </ul>
             <p><a class="btn btn-primary" href="https://filmai.abacusai.app/">Buy Starter Plan</a></p>
           </article>
@@ -1188,7 +1172,6 @@ Result: tighter pacing for 1–5 minute runtime.</div>
               <li>All genres and runtimes (1–5 min)</li>
               <li>Copy + paste export</li>
               <li>Script history saved</li>
-              <li>70% OFF AI Shot Director subscriptions</li>
               <li>Priority support</li>
               <li>Early access to new features</li>
             </ul>
@@ -1199,7 +1182,7 @@ Result: tighter pacing for 1–5 minute runtime.</div>
       </div>
     </section>
 
-        <section>
+    <section>
       <div class="container">
         <p class="section-kicker">// 09 FAQ</p>
         <h2>Frequently asked questions</h2>
@@ -1297,17 +1280,17 @@ Result: tighter pacing for 1–5 minute runtime.</div>
     <div class="container foot">
       <p style="margin:0;color:var(--muted);">© <span id="year"></span> Script Doctor</p>
       <nav class="foot-nav" aria-label="Footer links">
-       <nav class="foot-nav" aria-label="Footer links">
-  <a href="legal.html" style="padding: 0 10px;">Privacy</a>
-<a href="legal.html" style="padding: 0 10px;">Terms</a>
-<a href="mailto:filmai.newart@gmail.com" style="padding: 0 10px;">Contact</a>
-</nav></a>
+        <a href="legal.html">Privacy</a>
+        <a href="legal.html">Terms</a>
+        <a href="https://filmai.abacusai.app/">Contact</a>
       </nav>
+      <p style="margin:0;color:var(--muted);font-size:0.9rem;">filmai.newart@gmail.com</p>
     </div>
   </footer>
 
-    <script>
+  <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
     const themeToggle = document.getElementById('themeToggle');
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -1330,7 +1313,6 @@ Result: tighter pacing for 1–5 minute runtime.</div>
       applyTheme(current === 'dark' ? 'light' : 'dark', true);
     });
 
-
     document.querySelectorAll('.faq-trigger').forEach(function(btn){
       const panel = document.getElementById(btn.getAttribute('aria-controls'));
       btn.addEventListener('click', function(){
@@ -1350,9 +1332,3 @@ Result: tighter pacing for 1–5 minute runtime.</div>
   </script>
 </body>
 </html>
-
-
-
-
-
-
