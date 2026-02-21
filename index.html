@@ -1,101 +1,728 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCRIPT DOCTOR | The Structural Gatekeeper</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Outfit:wght@300;600;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
-    <style>
-        :root { --accent: #7C3AED; --bg: #050506; }
-        body { font-family: 'Outfit', sans-serif; background-color: var(--bg); color: #fff; overflow-x: hidden; }
-        .heading { font-family: 'Syncopate', sans-serif; text-transform: uppercase; letter-spacing: -0.05em; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
-        .hero-glow { background: radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 70%); }
-        .surgical-border { border: 1px solid rgba(255, 255, 255, 0.05); transition: border 0.3s ease; }
-        .surgical-border:hover { border: 1px solid var(--accent); }
-        .scanline { width: 100%; height: 2px; background: var(--accent); position: absolute; top: 0; left: 0; opacity: 0.5; animation: scan 3s linear infinite; }
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Script Doctor | Fix Your Short Film Script Before You Shoot</title>
+  <meta name="description" content="Script Doctor helps filmmakers build and fix 1–5 minute short film scripts with structure analysis, pacing diagnosis, and tighter rewrites before production." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Script Doctor | Short Film Script Doctor" />
+  <meta property="og:description" content="Generate or paste a 1–5 minute short script and get fast structure analysis, pacing diagnosis, and production-ready rewrites." />
+  <meta property="og:url" content="https://scriptdoctor.example.com" />
+  <meta property="og:site_name" content="Script Doctor" />
+  <meta property="og:locale" content="en_US" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #151515;
+      --muted: #606066;
+      --line: #e8e8ed;
+      --card: #fcfcfd;
+      --accent: #ff4d00;
+      --accent-dark: #cc3d00;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(17, 17, 17, 0.07);
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent); }
+
+    .container {
+      width: min(92%, var(--max));
+      margin-inline: auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      z-index: 1000;
+    }
+
+    .skip-link:focus {
+      left: 1rem;
+      top: 1rem;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.9rem 0;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 0.78rem 1.1rem;
+      font-weight: 700;
+      font-size: 0.96rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 120ms ease, background-color 120ms ease;
+    }
+
+    .btn:focus-visible,
+    .nav-links a:focus-visible,
+    input:focus-visible,
+    .faq-trigger:focus-visible {
+      outline: 3px solid rgba(255, 77, 0, 0.4);
+      outline-offset: 2px;
+      border-radius: 8px;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: var(--accent-dark); }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    main section { padding: 4.5rem 0; }
+
+    .hero {
+      padding: 5.5rem 0 4.5rem;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, #fff 0%, #fff7f3 100%);
+      border: 1px solid #ffe7dc;
+      box-shadow: var(--shadow);
+      border-radius: 24px;
+      padding: clamp(1.4rem, 3vw, 3rem);
+    }
+
+    h1, h2, h3 {
+      line-height: 1.2;
+      margin: 0 0 0.85rem;
+    }
+
+    h1 { font-size: clamp(2rem, 5vw, 3.35rem); max-width: 18ch; }
+    h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); }
+
+    p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      max-width: 72ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .social-strip {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: #fafafa;
+      padding: 1.25rem 0;
+    }
+
+    .logos {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.6rem;
+      margin-top: 0.8rem;
+    }
+
+    .logo-pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      text-align: center;
+      padding: 0.45rem;
+      color: #707078;
+      font-weight: 700;
+      font-size: 0.85rem;
+      background: #fff;
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.15rem;
+    }
+
+    .card h3 { font-size: 1.1rem; }
+
+    ul.clean {
+      margin: 0.5rem 0 0;
+      padding-left: 1rem;
+      color: var(--muted);
+    }
+
+    ol.steps {
+      margin: 0;
+      padding-left: 1.2rem;
+      color: var(--muted);
+    }
+
+    .use-cases .card strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .demo {
+      background: #fff8f4;
+      border-top: 1px solid #ffe2d4;
+      border-bottom: 1px solid #ffe2d4;
+    }
+
+    .mock-ui {
+      background: #fff;
+      border: 1px solid #ffd7c4;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .mock-top {
+      display: flex;
+      gap: 0.4rem;
+      padding: 0.8rem;
+      border-bottom: 1px solid var(--line);
+      background: #fff7f3;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffbe9e;
+    }
+
+    .mock-body {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      padding: 0.8rem;
+    }
+
+    .snippet {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.85rem;
+      line-height: 1.45;
+      background: #fffaf8;
+      border: 1px solid #ffe3d6;
+      border-radius: 12px;
+      padding: 0.8rem;
+      color: #5d4a43;
+      white-space: pre-wrap;
+    }
+
+    .pricing .card { position: relative; }
+
+    .badge {
+      position: absolute;
+      top: -12px;
+      right: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      border-radius: 999px;
+      padding: 0.25rem 0.6rem;
+    }
+
+    .price {
+      font-size: 1.95rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0.4rem 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--line);
+      padding: 0.65rem 0;
+    }
+
+    .faq-trigger {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 0.65rem 0;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .faq-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 180ms ease;
+      color: var(--muted);
+    }
+
+    .faq-item.open .faq-panel { max-height: 220px; }
+
+    .faq-item.open .icon { transform: rotate(45deg); }
+
+    .icon {
+      font-size: 1.2rem;
+      transition: transform 120ms ease;
+      color: var(--accent);
+    }
+
+    .cta-block {
+      background: #fff7f3;
+      border-top: 1px solid #ffe2d4;
+    }
+
+    form {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      align-items: flex-start;
+    }
+
+    .field-wrap { flex: 1 1 300px; }
+
+    label {
+      display: block;
+      margin-bottom: 0.35rem;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    input[type="email"] {
+      width: 100%;
+      border: 1px solid #cfcfd8;
+      border-radius: 10px;
+      padding: 0.75rem 0.82rem;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .help,
+    .form-feedback {
+      font-size: 0.86rem;
+      margin-top: 0.35rem;
+    }
+
+    .help { color: var(--muted); }
+    .form-feedback { min-height: 1.2em; font-weight: 600; }
+
+    .success {
+      color: #0a7a2f;
+    }
+
+    .error {
+      color: #9c2d00;
+    }
+
+    footer {
+      padding: 2rem 0 2.5rem;
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .foot {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.2rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .foot-nav {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .foot-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (min-width: 760px) {
+      .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .mock-body { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links a:not(.btn) { display: none; }
+      .logos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Script Doctor",
+      "applicationCategory": "WritingApplication",
+      "operatingSystem": "Web",
+      "description": "Script Doctor helps filmmakers generate or diagnose short film scripts (1–5 minutes) using compressed 3-act and modified Hero's Journey structure logic, then rewrite for stronger pacing and clarity.",
+      "offers": {
+        "@type": "Offer",
+        "price": "19",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to content</a>
 
-    <div class="fixed inset-0 pointer-events-none opacity-[0.03] z-[100] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+  <header aria-label="Main header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="Script Doctor home">Script Doctor</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#how-it-works">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#signup" class="btn btn-primary">Try Script Doctor</a>
+      </nav>
+    </div>
+  </header>
 
-    <nav class="flex justify-between items-center px-10 py-8 max-w-7xl mx-auto relative z-10">
-        <div class="flex items-center gap-4">
-            <div class="w-10 h-1 bg-white"></div>
-            <span class="heading text-xl tracking-tighter">Script <span class="text-purple-600">Doctor</span></span>
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="container hero-card">
+        <h1>Fix your short film script before you waste a shoot day</h1>
+        <p>Generate or paste your 1–5 minute short script, then get structure analysis, pacing diagnosis, and a tighter rewrite in minutes. Script Doctor is built for short films—not features, novels, or long-form writing.</p>
+        <div class="hero-actions">
+          <a href="#signup" class="btn btn-primary">Try Script Doctor</a>
+          <a href="#how-it-works" class="btn btn-secondary">See how it works</a>
         </div>
-        <div class="mono text-[10px] uppercase tracking-[0.4em] opacity-40 hidden md:block italic">v1.0.4 // Structural_Logic_Active</div>
-    </nav>
-
-    <header class="relative pt-20 pb-32 px-6 hero-glow">
-        <div class="max-w-5xl mx-auto text-center">
-            <h1 class="heading text-5xl md:text-8xl leading-[0.9] mb-8">
-                FIX IT BEFORE<br><span class="text-purple-600 underline decoration-1 underline-offset-8">YOU SHOOT IT.</span>
-            </h1>
-            <p class="text-xl md:text-2xl text-zinc-500 max-w-2xl mx-auto font-light leading-relaxed mb-12">
-                A specialized AI engine for 1–5 minute films. It kills weak structure, not creativity.
-            </p>
-            
-            <div class="max-w-3xl mx-auto surgical-border bg-black/40 backdrop-blur-xl p-2 rounded-lg flex flex-col md:flex-row gap-2">
-                <input type="text" placeholder="Paste your logline for a structural audit..." class="bg-transparent border-none outline-none flex-grow px-6 py-4 text-sm mono text-zinc-400">
-                <button class="bg-purple-600 text-white font-bold px-8 py-4 rounded hover:bg-white hover:text-black transition-all heading text-xs">Run Diagnostic</button>
-            </div>
-        </div>
-    </header>
-
-    <section class="max-w-7xl mx-auto px-10 py-24 grid md:grid-cols-3 gap-8">
-        <div class="surgical-border p-10 relative overflow-hidden group">
-            <div class="scanline opacity-0 group-hover:opacity-30 transition-opacity"></div>
-            <div class="mono text-purple-600 text-xs mb-6 tracking-widest">// 01</div>
-            <h3 class="heading text-lg mb-4">Micro-Runtime Logic</h3>
-            <p class="text-zinc-500 text-sm leading-relaxed">Most AI use feature-length math. Script Doctor enforces a compressed 3-act structure specifically for 1–5 minute runtimes. Every second earns its place.</p>
-        </div>
-        
-        <div class="surgical-border p-10 relative overflow-hidden group border-purple-900/40">
-            <div class="mono text-purple-600 text-xs mb-6 tracking-widest">// 02</div>
-            <h3 class="heading text-lg mb-4">Iterative Repair</h3>
-            <p class="text-zinc-500 text-sm leading-relaxed">It doesn't just draft. It analyzes structure, flags weak inciting incidents, and performs auto-fix loops until the pacing is airtight.</p>
-        </div>
-
-        <div class="surgical-border p-10 relative overflow-hidden group">
-            <div class="mono text-purple-600 text-xs mb-6 tracking-widest">// 03</div>
-            <h3 class="heading text-lg mb-4">Credit Protection</h3>
-            <p class="text-zinc-500 text-sm leading-relaxed">Don't waste StoryFlow generations on weak stories. Fix the front-end brain of your workflow before spending a single image credit.</p>
-        </div>
+      </div>
     </section>
 
-    <section class="py-24 bg-white/[0.02] border-y border-white/5">
-        <div class="max-w-5xl mx-auto px-10">
-            <div class="flex flex-col md:flex-row items-center gap-16">
-                <div class="w-full md:w-1/2">
-                    <h2 class="heading text-3xl mb-6 leading-tight">The structural gatekeeper of the <span class="text-purple-600 italic">FilmAI</span> ecosystem.</h2>
-                    <p class="text-zinc-500 mb-8 font-light">Script Doctor provides the high-fidelity blueprint that feeds Shot Director and StoryFlow. It's the difference between a "cool idea" and a cinematic masterpiece.</p>
-                    <div class="flex gap-4">
-                        <div class="h-[1px] w-12 bg-purple-600 mt-3"></div>
-                        <span class="mono text-[10px] uppercase tracking-widest text-zinc-400">Integrated with Shot Director // StoryFlow // AI Production</span>
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 surgical-border bg-black p-8 rounded shadow-2xl relative group">
-                    <div class="absolute top-4 right-4 text-[10px] mono text-purple-600 animate-pulse">LIVE_DIAGNOSTIC_RUNNING</div>
-                    <div class="space-y-4 mono text-[11px] text-zinc-600">
-                        <div>> Loading Script Analysis Module...</div>
-                        <div class="text-zinc-400">> Act I Climax: <span class="text-red-600">[ERROR: WEAK_STAKES]</span></div>
-                        <div class="text-zinc-400">> Pacing Density: <span class="text-yellow-600">[WARNING: VERBOSE_DIALOGUE]</span></div>
-                        <div class="text-purple-600">> Initializing Auto-Repair v4.2... SUCCESS.</div>
-                        <div class="w-full h-[1px] bg-white/10 my-4"></div>
-                        <div class="text-white font-bold">REVISED LOGLINE READY FOR PRODUCTION.</div>
-                    </div>
-                </div>
-            </div>
+    <section class="social-strip" aria-label="Social proof">
+      <div class="container">
+        <p><strong>Used by indie filmmakers, student directors, and creators shipping short films on tight schedules.</strong></p>
+        <div class="logos" aria-label="Sample partner logos">
+          <div class="logo-pill">FILM LAB</div>
+          <div class="logo-pill">INDIE CUT</div>
+          <div class="logo-pill">SHORTS DAILY</div>
+          <div class="logo-pill">CAMPUS CINEMA</div>
         </div>
+      </div>
     </section>
 
-    <footer class="py-20 text-center opacity-30">
-        <p class="heading text-[10px] tracking-[0.5em]">&copy; 2026 Script Doctor // Structural Integrity Secured.</p>
-    </footer>
+    <section>
+      <div class="container">
+        <h2>Why short scripts fail—and how Script Doctor fixes them</h2>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Common short-film pain points</h3>
+            <ul class="clean">
+              <li>The setup drags, so the turn comes too late in a 1–5 minute runtime.</li>
+              <li>Character stakes stay vague, so the ending lands flat.</li>
+              <li>Dialogue explains too much, and pacing collapses in key beats.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>What Script Doctor does differently</h3>
+            <ul class="clean">
+              <li>Enforces compressed 3-act beats plus modified Hero’s Journey logic for shorts.</li>
+              <li>Flags weak stakes, unclear goals, and structure gaps fast.</li>
+              <li>Rewrites for tighter dialogue, cleaner turns, and shootable momentum.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
 
+    <section id="how-it-works">
+      <div class="container">
+        <h2>How Script Doctor works</h2>
+        <p>Pick the workflow that matches your stage: start from scratch or diagnose an existing short script up to ~2000 words.</p>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Mode 1: Generate + Refine Loop</h3>
+            <ol class="steps">
+              <li>Enter genre, tone, target runtime (1–5 min), and logline.</li>
+              <li>Generate a first short-film draft with compressed structure.</li>
+              <li>Run analysis for beat order, pacing pressure, and emotional turns.</li>
+              <li>Apply rewrite fixes and iterate analysis → rewrite loops until ready.</li>
+            </ol>
+          </article>
+          <article class="card">
+            <h3>Mode 2: Paste + Diagnose</h3>
+            <ol class="steps">
+              <li>Paste your existing short script (up to ~2000 words).</li>
+              <li>Get diagnostics on structure, pacing, stakes, and clarity.</li>
+              <li>Review targeted notes on what to cut, move, or sharpen.</li>
+              <li>Auto-rewrite for a tighter, more shootable short-film draft.</li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2>Key features for 1–5 minute scripts</h2>
+        <div class="grid-3">
+          <article class="card"><h3>Short-film structure enforcement</h3><p>Built-in rules keep your script aligned to compressed short-film storytelling.</p></article>
+          <article class="card"><h3>Iterative analysis → rewrite loop</h3><p>Run multiple analysis and fix cycles before locking your shooting draft.</p></article>
+          <article class="card"><h3>Beat &amp; pacing diagnosis</h3><p>Find slow openings, late turns, and overloaded scenes quickly.</p></article>
+          <article class="card"><h3>Stakes + clarity checks</h3><p>Pinpoint fuzzy motivations and unclear outcomes that weaken endings.</p></article>
+          <article class="card"><h3>Dialogue tightening suggestions</h3><p>Cut exposition, sharpen intent, and keep lines performable.</p></article>
+          <article class="card"><h3>Production-ready, shootable focus</h3><p>Prioritizes practical clarity so pages translate cleanly to set.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="use-cases">
+      <div class="container">
+        <h2>Who Script Doctor is for</h2>
+        <div class="grid-4">
+          <article class="card"><strong>AI filmmakers</strong><p>Generate short concepts quickly and refine before production tests.</p></article>
+          <article class="card"><strong>Indie filmmakers</strong><p>Pressure-test a 1–5 minute script before spending budget on shoot days.</p></article>
+          <article class="card"><strong>Film students</strong><p>Learn short-form structure while improving assignment scripts fast.</p></article>
+          <article class="card"><strong>YouTube Shorts creators</strong><p>Turn rough story ideas into tight scripts built for fast audience retention.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo" aria-label="Product demo">
+      <div class="container">
+        <h2>See the workflow in one screen</h2>
+        <p>Script Doctor keeps input and diagnosis side by side so you can move from idea to shootable short faster.</p>
+        <div class="mock-ui" role="img" aria-label="Mock Script Doctor interface with input and rewritten output">
+          <div class="mock-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock-body">
+            <div class="snippet">INPUT
+Genre: Drama
+Tone: Tense
+Runtime: 3 min
+Logline: A nurse steals 90 seconds to call her son before surgery.
+
+Beat issue flagged:
+- Inciting turn arrives at 1:40 (too late)
+- Stakes unclear in opening lines</div>
+            <div class="snippet">OUTPUT (REWRITE)
+- Opens on urgent pre-op countdown
+- Stakes clarified by line 3
+- Midpoint conflict moved earlier
+- Ending image sharpened for emotional payoff
+
+Result: tighter pacing for 1–5 minute runtime.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+      <div class="container">
+        <h2>Pricing</h2>
+        <p>Choose the plan that fits your script volume. Every plan is optimized for short film scripts only.</p>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Starter</h3>
+            <p class="price">$19<span style="font-size:0.95rem;font-weight:600;color:var(--muted);">/mo</span></p>
+            <ul class="clean">
+              <li>5 runs per day</li>
+              <li>Basic diagnostics</li>
+              <li>1 rewrite pass per script</li>
+            </ul>
+            <p><a class="btn btn-secondary" href="#signup">Get Starter</a></p>
+          </article>
+          <article class="card">
+            <span class="badge">Most Popular</span>
+            <h3>Pro</h3>
+            <p class="price">$49<span style="font-size:0.95rem;font-weight:600;color:var(--muted);">/mo</span></p>
+            <ul class="clean">
+              <li>25 runs per day</li>
+              <li>Advanced diagnostics + beat scoring</li>
+              <li>Up to 6 analysis → rewrite loops</li>
+            </ul>
+            <p><a class="btn btn-primary" href="#signup">Get Pro</a></p>
+          </article>
+          <article class="card">
+            <h3>Studio</h3>
+            <p class="price">$99<span style="font-size:0.95rem;font-weight:600;color:var(--muted);">/mo</span></p>
+            <ul class="clean">
+              <li>100 runs per day</li>
+              <li>Highest loop limits + priority queue</li>
+              <li>Team-friendly script management</li>
+            </ul>
+            <p><a class="btn btn-secondary" href="#signup">Get Studio</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2>Frequently asked questions</h2>
+        <div class="faq" aria-label="Frequently asked questions">
+          <article class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">Can I paste my own script?<span class="icon">+</span></button>
+            <div class="faq-panel"><p>Yes. Use Paste + Diagnose and submit your existing short script for analysis and rewrite suggestions.</p></div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">How long can my script be?<span class="icon">+</span></button>
+            <div class="faq-panel"><p>Paste mode supports scripts up to about 2000 words, designed for roughly 1–5 minute short films.</p></div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">Does it write feature films?<span class="icon">+</span></button>
+            <div class="faq-panel"><p>No. Script Doctor is specifically for short-film scripts and does not target feature-length projects.</p></div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">What structure model does it use?<span class="icon">+</span></button>
+            <div class="faq-panel"><p>It enforces a compressed 3-act structure and modified Hero’s Journey logic adapted for short runtime storytelling.</p></div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">Can I iterate multiple rewrites?<span class="icon">+</span></button>
+            <div class="faq-panel"><p>Yes. The Generate + Refine workflow supports iterative analysis → rewrite loops, with limits based on plan.</p></div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">Will this help before production?<span class="icon">+</span></button>
+            <div class="faq-panel"><p>That is the core goal: diagnose script issues early so you avoid expensive shoot-day surprises.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-block" id="signup">
+      <div class="container">
+        <h2>Get your short script shoot-ready</h2>
+        <p>Join Script Doctor and stress-test your 1–5 minute script before cameras roll.</p>
+        <form id="emailForm" novalidate>
+          <div class="field-wrap">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="formHelp formFeedback" placeholder="you@studio.com" />
+            <p id="formHelp" class="help">No spam. Unsubscribe anytime.</p>
+            <p id="formFeedback" class="form-feedback" role="status" aria-live="polite"></p>
+          </div>
+          <div>
+            <label for="submitBtn" style="opacity:0;">Submit</label>
+            <button id="submitBtn" type="submit" class="btn btn-primary">Try Script Doctor</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <p style="margin:0;color:var(--muted);">© <span id="year"></span> Script Doctor</p>
+      <nav class="foot-nav" aria-label="Footer links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const form = document.getElementById('emailForm');
+    const email = document.getElementById('email');
+    const feedback = document.getElementById('formFeedback');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const value = email.value.trim();
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+      if (!value || !emailOk) {
+        feedback.textContent = 'Please enter a valid email address.';
+        feedback.className = 'form-feedback error';
+        email.setAttribute('aria-invalid', 'true');
+        email.focus();
+        return;
+      }
+
+      feedback.textContent = "You're on the list. We'll send your access details soon.";
+      feedback.className = 'form-feedback success';
+      email.setAttribute('aria-invalid', 'false');
+      form.reset();
+    });
+
+    document.querySelectorAll('.faq-trigger').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        item.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(!isOpen));
+      });
+    });
+  </script>
 </body>
 </html>
