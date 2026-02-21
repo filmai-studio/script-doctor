@@ -626,6 +626,8 @@
 
     ol.steps { padding-left: 1.2rem; }
 
+
+
     .pill-soon {
       display: inline-block;
       margin-left: 0.55rem;
@@ -705,6 +707,15 @@
       padding: 0.25rem 0.6rem;
       font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
     }
+      right: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      border-radius: 999px;
+      padding: 0.25rem 0.6rem;
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    }
 
     .price {
       font-size: 1.95rem;
@@ -712,6 +723,18 @@
       color: var(--text);
       margin: 0.4rem 0;
       font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+
+    .pricing-note,
+    .pricing-footnote {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .pricing-footnote {
+      margin-top: 0.9rem;
     }
 
     .faq-item {
@@ -874,7 +897,7 @@
           <span class="brand-icon">⌬</span>
           <span class="brand-meta">
             <span class="brand-title">Short Film Script Doctor <span class="beta-pill">BETA</span></span>
-            <span class="brand-sub">Festival-grade short film screenplays — AI-optimized, human-approved.</span>
+            <span class="brand-sub">Festival-grade short film screenplays — AI-optimized. You stay in control.</span>
           </span>
         </span>
       </a>
@@ -918,6 +941,7 @@
       </div>
     </section>
 
+
     <section class="diagnostic-engine" id="diagnostic-engine">
       <div class="container">
         <h2>The Diagnostic Engine</h2>
@@ -928,8 +952,9 @@
           </aside>
           <div class="analysis-dashboard" aria-label="Script Analysis dashboard preview">
             <div class="analysis-header">
-              <div class="analysis-score"><span id="analysisScore" data-target="4.1">0.0</span><small>/5</small><span class="analysis-stars">★</span></div>
+              <div class="analysis-score"><span id="analysisScore">4.3</span><small>/5</small><span class="analysis-stars">★</span></div>
               <p class="analysis-sub">Overall Rating (0-5 Stars) · Estimated Runtime: &lt; 5 minutes</p>
+              <p class="analysis-sub">Sample analysis: Silent Orbit (3-minute sci-fi short)</p>
             </div>
             <article class="format-notes">
               <h3>Format-Specific Notes (Short Script)</h3>
@@ -962,11 +987,11 @@
             <article class="diag-progress">
               <div class="progress-row">
                 <div class="progress-label"><span>Dialogue vs. Action Balance</span><span>68%</span></div>
-                <div class="progress-track"><div class="progress-fill" data-progress="68"></div></div>
+                <div class="progress-track"><div class="progress-fill" style="width:68%"></div></div>
               </div>
               <div class="progress-row">
                 <div class="progress-label"><span>Pacing Efficiency</span><span>82%</span></div>
-                <div class="progress-track"><div class="progress-fill" data-progress="82"></div></div>
+                <div class="progress-track"><div class="progress-fill" style="width:82%"></div></div>
               </div>
             </article>
           </div>
@@ -1055,6 +1080,7 @@
       </div>
     </section>
 
+
     <section class="roadmap">
       <div class="container">
         <p class="section-kicker">// 05 Roadmap</p>
@@ -1119,6 +1145,7 @@ Result: tighter pacing for 1–5 minute runtime.</div>
         <p class="section-kicker">// 08 Pricing</p>
         <h2>Choose Your Plan</h2>
         <p>Start creating festival-grade short film scripts with AI. Every plan is built for 1–5 minute scripts only.</p>
+        <p class="pricing-note">Each click that generates a new output counts as 1 run.</p>
         <div class="grid-3">
           <article class="card">
             <h3>Free</h3>
@@ -1129,10 +1156,10 @@ Result: tighter pacing for 1–5 minute runtime.</div>
               <li>2 free regenerations per script</li>
               <li>Custom fix instructions</li>
               <li>All genres and runtimes (1–5 min)</li>
-              <li>Fountain and PDF export</li>
+              <li>Copy + paste export</li>
               <li>AI Shot Director access</li>
             </ul>
-            <p><a class="btn btn-secondary" href="#signup">Sign Up Free</a></p>
+            <p><a class="btn btn-secondary" href="https://filmai.abacusai.app/">Sign Up Free</a></p>
           </article>
           <article class="card">
             <span class="badge">Most Popular</span>
@@ -1140,38 +1167,39 @@ Result: tighter pacing for 1–5 minute runtime.</div>
             <p class="price">$7<span style="font-size:0.95rem;font-weight:600;color:var(--muted);">/mo</span></p>
             <ul class="clean">
               <li>15 AI script generations per month</li>
-              <li>Unlimited diagnose/fix runs on your own scripts</li>
+              <li>High monthly limit</li>
               <li>2 free regenerations per script</li>
               <li>Custom fix instructions</li>
               <li>All genres and runtimes (1–5 min)</li>
-              <li>Fountain and PDF export</li>
+              <li>Copy + paste export</li>
               <li>Script history saved</li>
               <li>70% OFF AI Shot Director subscriptions</li>
             </ul>
-            <p><a class="btn btn-primary" href="#signup">Buy Starter Plan</a></p>
+            <p><a class="btn btn-primary" href="https://filmai.abacusai.app/">Buy Starter Plan</a></p>
           </article>
           <article class="card">
             <h3>Pro</h3>
             <p class="price">$17<span style="font-size:0.95rem;font-weight:600;color:var(--muted);">/mo</span></p>
             <ul class="clean">
               <li>40 AI script generations per month</li>
-              <li>Unlimited diagnose/fix runs on your own scripts</li>
+              <li>High monthly limit</li>
               <li>2 free regenerations per script</li>
               <li>Custom fix instructions</li>
               <li>All genres and runtimes (1–5 min)</li>
-              <li>Fountain and PDF export</li>
+              <li>Copy + paste export</li>
               <li>Script history saved</li>
               <li>70% OFF AI Shot Director subscriptions</li>
               <li>Priority support</li>
               <li>Early access to new features</li>
             </ul>
-            <p><a class="btn btn-secondary" href="#signup">Buy Pro Plan</a></p>
+            <p><a class="btn btn-secondary" href="https://filmai.abacusai.app/">Buy Pro Plan</a></p>
           </article>
         </div>
+        <p class="pricing-footnote">Limits apply monthly. Each output counts as 1 run.</p>
       </div>
     </section>
 
-    <section>
+        <section>
       <div class="container">
         <p class="section-kicker">// 09 FAQ</p>
         <h2>Frequently asked questions</h2>
@@ -1217,16 +1245,8 @@ Result: tighter pacing for 1–5 minute runtime.</div>
             <div class="faq-panel" id="faq-a-10" role="region" aria-labelledby="faq-q-10" hidden><p>You can upgrade anytime to get more runs. Your existing scripts remain available to copy/export.</p></div>
           </article>
           <article class="faq-item">
-            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-11" aria-expanded="false" aria-controls="faq-a-11">Is there a free trial or preview?<span class="icon">+</span></button></h3>
-            <div class="faq-panel" id="faq-a-11" role="region" aria-labelledby="faq-q-11" hidden><p>Not currently. Pricing is listed above.</p></div>
-          </article>
-          <article class="faq-item">
-            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-12" aria-expanded="false" aria-controls="faq-a-12">What formats can I export to?<span class="icon">+</span></button></h3>
-            <div class="faq-panel" id="faq-a-12" role="region" aria-labelledby="faq-q-12" hidden><p>Export options depend on the current build. At minimum, you can copy the script text.</p></div>
-          </article>
-          <article class="faq-item">
-            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-13" aria-expanded="false" aria-controls="faq-a-13">Does it follow screenplay formatting rules?<span class="icon">+</span></button></h3>
-            <div class="faq-panel" id="faq-a-13" role="region" aria-labelledby="faq-q-13" hidden><p>It outputs screenplay-style formatting with clear scene breaks and dialogue. You can still tweak formatting to match your preferred template.</p></div>
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-11" aria-expanded="false" aria-controls="faq-a-11">What formats can I export to?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-11" role="region" aria-labelledby="faq-q-11" hidden><p>Copy/paste export is available now. Additional export formats may be added later.</p></div>
           </article>
           <article class="faq-item">
             <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-14" aria-expanded="false" aria-controls="faq-a-14">What is AI Shot Director?<span class="icon">+</span></button></h3>
@@ -1277,16 +1297,15 @@ Result: tighter pacing for 1–5 minute runtime.</div>
     <div class="container foot">
       <p style="margin:0;color:var(--muted);">© <span id="year"></span> Script Doctor</p>
       <nav class="foot-nav" aria-label="Footer links">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Contact</a>
+        <a href="legal.html">Privacy</a>
+        <a href="legal.html">Terms</a>
+        <a href="https://filmai.abacusai.app/">Contact</a>
       </nav>
     </div>
   </footer>
 
-  <script>
+    <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-
     const themeToggle = document.getElementById('themeToggle');
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -1309,45 +1328,6 @@ Result: tighter pacing for 1–5 minute runtime.</div>
       applyTheme(current === 'dark' ? 'light' : 'dark', true);
     });
 
-    const diagnosticSection = document.getElementById('diagnostic-engine');
-    const scoreEl = document.getElementById('analysisScore');
-    const progressBars = Array.from(document.querySelectorAll('.progress-fill'));
-    let diagnosticAnimated = false;
-
-    function animateDiagnostic() {
-      if (diagnosticAnimated || !scoreEl) return;
-      diagnosticAnimated = true;
-      const target = Number(scoreEl.dataset.target || '4.1');
-      const start = performance.now();
-      const duration = 1100;
-
-      function step(now) {
-        const progress = Math.min((now - start) / duration, 1);
-        const value = target * progress;
-        scoreEl.textContent = value.toFixed(1);
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        }
-      }
-
-      requestAnimationFrame(step);
-      progressBars.forEach((bar) => {
-        const pct = bar.dataset.progress || '0';
-        bar.style.width = pct + '%';
-      });
-    }
-
-    if (diagnosticSection) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateDiagnostic();
-            observer.disconnect();
-          }
-        });
-      }, { threshold: 0.35 });
-      observer.observe(diagnosticSection);
-    }
 
     document.querySelectorAll('.faq-trigger').forEach(function(btn){
       const panel = document.getElementById(btn.getAttribute('aria-controls'));
