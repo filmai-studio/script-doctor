@@ -21,11 +21,33 @@
       --line: rgba(124, 58, 237, 0.28);
       --accent: #7c3aed;
       --accent-strong: #9b5cff;
-      --charcoal: #0d0d0e;
       --radius: 16px;
       --shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
       --glass: rgba(255, 255, 255, 0.04);
+      --header-bg: rgba(5, 5, 6, 0.72);
+      --tint-bg: rgba(124,58,237,0.06);
+      --footer-bg: rgba(13,13,14,0.8);
+      --noise-opacity: 0.18;
+      --ambient-1: rgba(124,58,237,0.28);
+      --ambient-2: rgba(124,58,237,0.14);
       --max: 1120px;
+    }
+
+    [data-theme="light"] {
+      --bg: #f8f9fc;
+      --surface: #ffffff;
+      --surface-soft: #f1f3f8;
+      --text: #121217;
+      --muted: #525666;
+      --line: rgba(18, 18, 23, 0.14);
+      --shadow: 0 12px 34px rgba(16, 16, 24, 0.10);
+      --glass: rgba(255, 255, 255, 0.88);
+      --header-bg: rgba(255, 255, 255, 0.92);
+      --tint-bg: rgba(124,58,237,0.08);
+      --footer-bg: #ffffff;
+      --noise-opacity: 0.06;
+      --ambient-1: rgba(124,58,237,0.10);
+      --ambient-2: rgba(124,58,237,0.06);
     }
 
     * { box-sizing: border-box; }
@@ -48,7 +70,7 @@
       inset: 0;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.18;
+      opacity: var(--noise-opacity);
       background-image:
         radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08) 0.6px, transparent 0.8px),
         radial-gradient(circle at 75% 65%, rgba(255,255,255,0.05) 0.6px, transparent 0.8px);
@@ -62,8 +84,8 @@
       inset: 0;
       pointer-events: none;
       z-index: 0;
-      background: radial-gradient(circle at 50% -20%, rgba(124,58,237,0.28), transparent 48%),
-                  radial-gradient(circle at 120% 70%, rgba(124,58,237,0.14), transparent 40%);
+      background: radial-gradient(circle at 50% -20%, var(--ambient-1), transparent 48%),
+                  radial-gradient(circle at 120% 70%, var(--ambient-2), transparent 40%);
       mix-blend-mode: lighten;
     }
 
@@ -96,7 +118,7 @@
       position: sticky;
       top: 0;
       z-index: 999;
-      background: rgba(5, 5, 6, 0.72);
+      background: var(--header-bg);
       backdrop-filter: blur(14px);
       border-bottom: 1px dashed var(--line);
     }
@@ -175,6 +197,18 @@
       font-size: 0.95rem;
     }
 
+    .theme-toggle {
+      border: 1px dashed var(--line);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 0.52rem 0.7rem;
+      font-size: 0.83rem;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+    }
+
     .btn {
       border-radius: 999px;
       padding: 0.8rem 1.12rem;
@@ -207,7 +241,7 @@
     .btn-primary:hover { background: linear-gradient(120deg, var(--accent-strong) 0%, var(--accent) 100%); }
 
     .btn-secondary {
-      background: rgba(255,255,255,0.02);
+      background: var(--surface-soft);
       color: var(--text);
       border: 1px dashed var(--line);
     }
@@ -355,13 +389,13 @@
       font-size: 0.83rem;
       line-height: 1.45;
       white-space: pre-wrap;
-      background: rgba(13,13,14,0.72);
+      background: var(--surface-soft);
     }
 
     .social-strip {
       border-top: 1px dashed var(--line);
       border-bottom: 1px dashed var(--line);
-      background: rgba(255,255,255,0.02);
+      background: var(--surface-soft);
       backdrop-filter: blur(10px);
       padding: 1.25rem 0;
     }
@@ -381,7 +415,7 @@
       color: #cdcde0;
       font-weight: 700;
       font-size: 0.85rem;
-      background: rgba(255,255,255,0.03);
+      background: var(--surface);
       font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
     }
 
@@ -451,6 +485,10 @@
       margin: 0 0 0.5rem;
     }
 
+    ol.steps { padding-left: 1.2rem; }
+
+
+
     .pill-soon {
       display: inline-block;
       margin-left: 0.55rem;
@@ -471,10 +509,8 @@
       font-size: 0.92rem;
     }
 
-    ol.steps { padding-left: 1.2rem; }
-
     .demo {
-      background: rgba(124,58,237,0.06);
+      background: var(--tint-bg);
       border-top: 1px dashed var(--line);
       border-bottom: 1px dashed var(--line);
     }
@@ -510,7 +546,7 @@
       font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
       font-size: 0.84rem;
       line-height: 1.45;
-      background: rgba(13, 13, 14, 0.78);
+      background: var(--surface-soft);
       border: 1px dashed var(--line);
       border-radius: 12px;
       padding: 0.8rem;
@@ -546,6 +582,8 @@
       padding: 0.65rem 0;
     }
 
+    .faq-heading { margin: 0; }
+
     .faq-trigger {
       width: 100%;
       text-align: left;
@@ -571,7 +609,9 @@
       color: var(--muted);
     }
 
-    .faq-item.open .faq-panel { max-height: 220px; }
+    .faq-panel[hidden] { display: none; }
+
+    .faq-item.open .faq-panel { max-height: 320px; }
     .faq-item.open .icon { transform: rotate(45deg); }
 
     .icon {
@@ -582,7 +622,7 @@
     }
 
     .cta-block {
-      background: rgba(124,58,237,0.06);
+      background: var(--tint-bg);
       border-top: 1px dashed var(--line);
     }
 
@@ -611,7 +651,7 @@
       padding: 0.75rem 0.82rem;
       font-size: 1rem;
       color: var(--text);
-      background: rgba(255,255,255,0.03);
+      background: var(--surface);
     }
 
     .help, .form-feedback {
@@ -628,7 +668,7 @@
     footer {
       padding: 2rem 0 2.5rem;
       border-top: 1px dashed var(--line);
-      background: rgba(13,13,14,0.8);
+      background: var(--footer-bg);
     }
 
     .foot {
@@ -704,6 +744,7 @@
         <a href="#how-it-works">Help</a>
         <a href="#pricing">Pricing</a>
         <a href="https://filmai.abacusai.app/" class="btn btn-primary">Try Script Doctor</a>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">🌙 Dark</button>
       </nav>
     </div>
   </header>
@@ -797,7 +838,7 @@
             <ol class="steps">
               <li>Paste your existing short script (up to ~2000 words).</li>
               <li>Get diagnostics on structure, pacing, stakes, and clarity.</li>
-              <li>Review targeted notes on what to cut, move, or sharpen.</li>
+              <li>Review targeted notes and tell the app exactly what you want changed.</li>
               <li>Auto-rewrite for a tighter, more shootable short-film draft.</li>
             </ol>
           </article>
@@ -819,6 +860,7 @@
         </div>
       </div>
     </section>
+
 
     <section class="roadmap">
       <div class="container">
@@ -942,28 +984,88 @@ Result: tighter pacing for 1–5 minute runtime.</div>
         <h2>Frequently asked questions</h2>
         <div class="faq" aria-label="Frequently asked questions">
           <article class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">What counts as a script generation?<span class="icon">+</span></button>
-            <div class="faq-panel"><p>Each new short script created from a prompt counts as one generation. Each generation still includes two free regenerations to refine the draft before using another generation credit.</p></div>
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-1" aria-expanded="false" aria-controls="faq-a-1">Who owns the scripts I generate?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-1" role="region" aria-labelledby="faq-q-1" hidden><p>You own your scripts. Script Doctor does not claim copyright or ownership over anything you generate.</p></div>
           </article>
           <article class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">Can I upgrade or downgrade my plan?<span class="icon">+</span></button>
-            <div class="faq-panel"><p>Yes. You can change plans anytime. Plan changes apply at the start of your next billing cycle.</p></div>
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2">Are my scripts private? Do you train on them?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-2" role="region" aria-labelledby="faq-q-2" hidden><p>Your scripts are treated as private input for generating your result. We do not publish your text. We don’t use your scripts for public examples.</p></div>
           </article>
           <article class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">What formats can I export to?<span class="icon">+</span></button>
-            <div class="faq-panel"><p>All plans support Fountain export (industry standard) and PDF export for easy sharing and production use.</p></div>
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3">Can other users get my idea or script?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-3" role="region" aria-labelledby="faq-q-3" hidden><p>No. Other users cannot access your scripts or prompts through the product.</p></div>
           </article>
           <article class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">How do Script Analysis and Script Polishing work?<span class="icon">+</span></button>
-            <div class="faq-panel"><p>After generating or pasting a short script, Script Doctor analyzes structure, pacing, stakes, and clarity. You can then polish and rewrite repeatedly based on your plan limits.</p></div>
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-4" aria-expanded="false" aria-controls="faq-a-4">Can I paste my own script?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-4" role="region" aria-labelledby="faq-q-4" hidden><p>Yes. Paste your existing short script, run diagnosis, and generate a tighter rewrite.</p></div>
           </article>
           <article class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">What is AI Shot Director?<span class="icon">+</span></button>
-            <div class="faq-panel"><p>AI Shot Director is the companion production planning tool for turning a short script into practical shot lists and timing notes. Paid Script Doctor plans include a 70% discount on its subscription.</p></div>
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-5" aria-expanded="false" aria-controls="faq-a-5">How long can my script be?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-5" role="region" aria-labelledby="faq-q-5" hidden><p>It is built for 1–5 minute short scripts. Paste mode supports around 2,000 words.</p></div>
           </article>
           <article class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">Does it write feature films?<span class="icon">+</span></button>
-            <div class="faq-panel"><p>No. Script Doctor is specifically designed for 1–5 minute short film scripts and is not for feature-length screenplays.</p></div>
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-6" aria-expanded="false" aria-controls="faq-a-6">Is there a word limit?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-6" role="region" aria-labelledby="faq-q-6" hidden><p>Yes. Pasted scripts are capped at around 2,000 words to stay aligned with 1–5 minute shorts.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-7" aria-expanded="false" aria-controls="faq-a-7">What counts as a “generation” or a “rewrite”?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-7" role="region" aria-labelledby="faq-q-7" hidden><p>A generation is creating a new draft from inputs. A rewrite is running an analysis-driven polish on an existing draft. Each click that produces a new output counts as one run.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-8" aria-expanded="false" aria-controls="faq-a-8">Can I edit the script and re-analyze it?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-8" role="region" aria-labelledby="faq-q-8" hidden><p>Yes. Paste your updated version and run analysis again to get a new diagnosis and rewrite.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-9" aria-expanded="false" aria-controls="faq-a-9">Can I upgrade or downgrade my plan?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-9" role="region" aria-labelledby="faq-q-9" hidden><p>Yes. You can change plans anytime. Plan changes apply at the start of your next billing cycle.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-10" aria-expanded="false" aria-controls="faq-a-10">What happens if I hit my plan limit?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-10" role="region" aria-labelledby="faq-q-10" hidden><p>You can upgrade anytime to get more runs. Your existing scripts remain available to copy/export.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-11" aria-expanded="false" aria-controls="faq-a-11">Is there a free trial or preview?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-11" role="region" aria-labelledby="faq-q-11" hidden><p>Not currently. Pricing is listed above.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-12" aria-expanded="false" aria-controls="faq-a-12">What formats can I export to?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-12" role="region" aria-labelledby="faq-q-12" hidden><p>Export options depend on the current build. At minimum, you can copy the script text.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-13" aria-expanded="false" aria-controls="faq-a-13">Does it follow screenplay formatting rules?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-13" role="region" aria-labelledby="faq-q-13" hidden><p>It outputs screenplay-style formatting with clear scene breaks and dialogue. You can still tweak formatting to match your preferred template.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-14" aria-expanded="false" aria-controls="faq-a-14">What is AI Shot Director?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-14" role="region" aria-labelledby="faq-q-14" hidden><p>AI Shot Director is the companion production planning tool for turning a short script into practical shot lists and timing notes.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-15" aria-expanded="false" aria-controls="faq-a-15">Can I use this for YouTube shorts or AI animation?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-15" role="region" aria-labelledby="faq-q-15" hidden><p>Yes, as long as your script is built for 1–5 minutes. Many users use it as a starting point for shot lists and animation workflows.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-16" aria-expanded="false" aria-controls="faq-a-16">What genres work best?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-16" role="region" aria-labelledby="faq-q-16" hidden><p>It works best for high-clarity shorts: thriller, sci-fi, horror, comedy, drama. Experimental formats may need more manual shaping.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-17" aria-expanded="false" aria-controls="faq-a-17">Is Script Doctor beginner friendly?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-17" role="region" aria-labelledby="faq-q-17" hidden><p>Yes. It’s designed to guide you with structure-first feedback, even if you’ve never written a short before.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-18" aria-expanded="false" aria-controls="faq-a-18">How do Script Analysis and Script Polishing work?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-18" role="region" aria-labelledby="faq-q-18" hidden><p>After generating or pasting a short script, Script Doctor analyzes structure, pacing, stakes, and clarity, then rewrites based on those findings.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-19" aria-expanded="false" aria-controls="faq-a-19">Will this make my script perfect?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-19" role="region" aria-labelledby="faq-q-19" hidden><p>No. It will make your short stronger and tighter, but you’re still the final editor.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-20" aria-expanded="false" aria-controls="faq-a-20">Does it write feature films?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-20" role="region" aria-labelledby="faq-q-20" hidden><p>No. Script Doctor is for 1–5 minute short scripts and does not write feature films.</p></div>
+          </article>
+          <article class="faq-item">
+            <h3 class="faq-heading"><button class="faq-trigger" id="faq-q-21" aria-expanded="false" aria-controls="faq-a-21">What is the refund policy?<span class="icon">+</span></button></h3>
+            <div class="faq-panel" id="faq-a-21" role="region" aria-labelledby="faq-q-21" hidden><p>Refund terms are listed in our Terms.</p></div>
           </article>
         </div>
       </div>
@@ -992,13 +1094,42 @@ Result: tighter pacing for 1–5 minute runtime.</div>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    const themeToggle = document.getElementById('themeToggle');
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function applyTheme(theme, persist = false) {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.setAttribute('aria-pressed', String(theme === 'light'));
+      themeToggle.textContent = theme === 'light' ? '☀️ Light' : '🌙 Dark';
+      if (persist) localStorage.setItem('theme', theme);
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      applyTheme(savedTheme);
+    } else {
+      applyTheme(mq.matches ? 'dark' : 'light');
+    }
+
+    themeToggle.addEventListener('click', function () {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      applyTheme(current === 'dark' ? 'light' : 'dark', true);
+    });
 
     document.querySelectorAll('.faq-trigger').forEach(function(btn){
+      const panel = document.getElementById(btn.getAttribute('aria-controls'));
       btn.addEventListener('click', function(){
         const item = btn.closest('.faq-item');
         const isOpen = item.classList.contains('open');
         item.classList.toggle('open');
         btn.setAttribute('aria-expanded', String(!isOpen));
+        panel.hidden = isOpen;
+      });
+      btn.addEventListener('keydown', function(e){
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          btn.click();
+        }
       });
     });
   </script>
