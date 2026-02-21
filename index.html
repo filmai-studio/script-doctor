@@ -13,37 +13,67 @@
   <meta property="og:locale" content="en_US" />
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #151515;
-      --muted: #606066;
-      --line: #e8e8ed;
-      --card: #fcfcfd;
-      --accent: #ff4d00;
-      --accent-dark: #cc3d00;
-      --radius: 14px;
-      --shadow: 0 10px 30px rgba(17, 17, 17, 0.07);
+      --bg: #050506;
+      --surface: #0d0d0e;
+      --surface-soft: #141417;
+      --text: #f6f7fb;
+      --muted: #b3b3bf;
+      --line: rgba(124, 58, 237, 0.28);
+      --accent: #7c3aed;
+      --accent-strong: #9b5cff;
+      --charcoal: #0d0d0e;
+      --radius: 16px;
+      --shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+      --glass: rgba(255, 255, 255, 0.04);
       --max: 1120px;
     }
 
     * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: var(--text);
       background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
     }
 
-    a { color: var(--accent); }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.18;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08) 0.6px, transparent 0.8px),
+        radial-gradient(circle at 75% 65%, rgba(255,255,255,0.05) 0.6px, transparent 0.8px);
+      background-size: 3px 3px, 4px 4px;
+      mix-blend-mode: screen;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle at 50% -20%, rgba(124,58,237,0.28), transparent 48%),
+                  radial-gradient(circle at 120% 70%, rgba(124,58,237,0.14), transparent 40%);
+      mix-blend-mode: lighten;
+    }
+
+    a { color: var(--accent-strong); }
 
     .container {
       width: min(92%, var(--max));
       margin-inline: auto;
+      position: relative;
+      z-index: 1;
     }
 
     .skip-link {
@@ -66,9 +96,9 @@
       position: sticky;
       top: 0;
       z-index: 999;
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid var(--line);
+      background: rgba(5, 5, 6, 0.72);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px dashed var(--line);
     }
 
     .nav-wrap {
@@ -76,20 +106,66 @@
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
-      padding: 0.9rem 0;
+      padding: 0.95rem 0;
     }
 
     .brand {
-      font-weight: 800;
-      letter-spacing: 0.2px;
       text-decoration: none;
       color: var(--text);
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #8a55ff, #6a2fe5);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(124,58,237,0.45);
+    }
+
+    .brand-meta {
+      display: grid;
+      gap: 0.05rem;
+      line-height: 1.15;
+    }
+
+    .brand-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .beta-pill {
+      display: inline-block;
+      margin-left: 0.4rem;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(145deg, #e03ecf, #8f34ff);
+      border-radius: 999px;
+      padding: 0.12rem 0.42rem;
+      vertical-align: middle;
+    }
+
+    .brand-sub {
+      color: #a7a8b6;
+      font-size: 0.84rem;
+      max-width: 38ch;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.2rem;
     }
 
     .nav-links a {
@@ -100,14 +176,14 @@
     }
 
     .btn {
-      border: none;
       border-radius: 999px;
-      padding: 0.78rem 1.1rem;
+      padding: 0.8rem 1.12rem;
       font-weight: 700;
       font-size: 0.96rem;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
+      border: 1px solid transparent;
       transition: transform 120ms ease, background-color 120ms ease;
     }
 
@@ -115,7 +191,7 @@
     .nav-links a:focus-visible,
     input:focus-visible,
     .faq-trigger:focus-visible {
-      outline: 3px solid rgba(255, 77, 0, 0.4);
+      outline: 3px solid rgba(124, 58, 237, 0.55);
       outline-offset: 2px;
       border-radius: 8px;
     }
@@ -123,44 +199,105 @@
     .btn:hover { transform: translateY(-1px); }
 
     .btn-primary {
-      background: var(--accent);
+      background: linear-gradient(120deg, var(--accent) 0%, #5c24c4 100%);
       color: #fff;
+      box-shadow: 0 10px 20px rgba(124, 58, 237, 0.35);
     }
 
-    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-primary:hover { background: linear-gradient(120deg, var(--accent-strong) 0%, var(--accent) 100%); }
 
     .btn-secondary {
-      background: #fff;
+      background: rgba(255,255,255,0.02);
       color: var(--text);
-      border: 1px solid var(--line);
+      border: 1px dashed var(--line);
     }
 
-    main section { padding: 4.5rem 0; }
+    main section { padding: 4.7rem 0; }
 
     .hero {
-      padding: 5.5rem 0 4.5rem;
+      padding: 5.8rem 0 4.7rem;
+    }
+
+    .hero-card,
+    .card,
+    .mock-ui,
+    .terminal {
+      background: var(--glass);
+      border: 1px dashed var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .hero-card {
-      background: linear-gradient(180deg, #fff 0%, #fff7f3 100%);
-      border: 1px solid #ffe7dc;
-      box-shadow: var(--shadow);
       border-radius: 24px;
       padding: clamp(1.4rem, 3vw, 3rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      right: -120px;
+      top: -80px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,0.3) 0%, rgba(124,58,237,0) 70%);
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      bottom: 14px;
+      width: 8px;
+      border-radius: 999px;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(124,58,237,0.8) 0 8px,
+        transparent 8px 16px
+      );
+      opacity: 0.65;
+    }
+
+    .eyebrow {
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      font-size: 0.78rem;
+      color: #be9dff;
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
     }
 
     h1, h2, h3 {
-      line-height: 1.2;
-      margin: 0 0 0.85rem;
+      line-height: 1.12;
+      margin: 0 0 0.88rem;
+      font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      letter-spacing: -0.02em;
+      text-transform: none;
     }
 
-    h1 { font-size: clamp(2rem, 5vw, 3.35rem); max-width: 18ch; }
-    h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); }
+    h1 {
+      font-size: clamp(2rem, 4.8vw, 3.6rem);
+      max-width: 14ch;
+      font-weight: 800;
+    }
+
+    h2 { font-size: clamp(1.4rem, 2.4vw, 2rem); font-weight: 780; }
 
     p {
       margin: 0 0 1rem;
       color: var(--muted);
       max-width: 72ch;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+      align-items: start;
     }
 
     .hero-actions {
@@ -170,10 +307,62 @@
       gap: 0.8rem;
     }
 
+    .terminal {
+      border-radius: 16px;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .terminal::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.05) 0,
+        rgba(255,255,255,0.05) 1px,
+        rgba(255,255,255,0) 3px,
+        rgba(255,255,255,0) 5px
+      );
+      mix-blend-mode: soft-light;
+      animation: scan 8s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes scan {
+      from { transform: translateY(-10%); }
+      to { transform: translateY(10%); }
+    }
+
+    .terminal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px dashed var(--line);
+      background: rgba(124,58,237,0.1);
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      color: #dfcdfd;
+      font-size: 0.8rem;
+      letter-spacing: 0.3px;
+    }
+
+    .terminal-body {
+      padding: 0.9rem;
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      color: #d9d3e6;
+      font-size: 0.83rem;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      background: rgba(13,13,14,0.72);
+    }
+
     .social-strip {
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: #fafafa;
+      border-top: 1px dashed var(--line);
+      border-bottom: 1px dashed var(--line);
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(10px);
       padding: 1.25rem 0;
     }
 
@@ -185,19 +374,18 @@
     }
 
     .logo-pill {
-      border: 1px solid var(--line);
+      border: 1px dashed var(--line);
       border-radius: 999px;
       text-align: center;
       padding: 0.45rem;
-      color: #707078;
+      color: #cdcde0;
       font-weight: 700;
       font-size: 0.85rem;
-      background: #fff;
+      background: rgba(255,255,255,0.03);
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
     }
 
-    .grid-2,
-    .grid-3,
-    .grid-4 {
+    .grid-2, .grid-3, .grid-4 {
       display: grid;
       gap: 1rem;
     }
@@ -207,44 +395,72 @@
     .grid-4 { grid-template-columns: 1fr; }
 
     .card {
-      background: var(--card);
-      border: 1px solid var(--line);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
       padding: 1.15rem;
+      transition: transform 160ms ease, border-color 160ms ease;
     }
 
-    .card h3 { font-size: 1.1rem; }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(155,92,255,0.62);
+    }
 
-    ul.clean {
+    .card h3 { font-size: 1.02rem; }
+
+    .dept {
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      color: #b996ff;
+      font-size: 0.82rem;
+      margin-right: 0.4rem;
+      letter-spacing: 0;
+    }
+
+    ul.clean,
+    ol.steps {
       margin: 0.5rem 0 0;
       padding-left: 1rem;
       color: var(--muted);
     }
 
-    ol.steps {
-      margin: 0;
-      padding-left: 1.2rem;
-      color: var(--muted);
+    ul.clean {
+      list-style: none;
+      padding-left: 0;
     }
 
-    .use-cases .card strong {
-      color: var(--text);
-      display: block;
-      margin-bottom: 0.25rem;
+    ul.clean li {
+      position: relative;
+      padding-left: 1.1rem;
+      margin-bottom: 0.28rem;
     }
+
+    ul.clean li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #a77bff;
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      font-size: 0.82rem;
+    }
+
+    .section-kicker {
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      color: #ad87ff;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin: 0 0 0.5rem;
+    }
+
+    ol.steps { padding-left: 1.2rem; }
 
     .demo {
-      background: #fff8f4;
-      border-top: 1px solid #ffe2d4;
-      border-bottom: 1px solid #ffe2d4;
+      background: rgba(124,58,237,0.06);
+      border-top: 1px dashed var(--line);
+      border-bottom: 1px dashed var(--line);
     }
 
     .mock-ui {
-      background: #fff;
-      border: 1px solid #ffd7c4;
       border-radius: 18px;
-      box-shadow: var(--shadow);
       overflow: hidden;
     }
 
@@ -252,15 +468,15 @@
       display: flex;
       gap: 0.4rem;
       padding: 0.8rem;
-      border-bottom: 1px solid var(--line);
-      background: #fff7f3;
+      border-bottom: 1px dashed var(--line);
+      background: rgba(124,58,237,0.1);
     }
 
     .dot {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: #ffbe9e;
+      background: #a77bff;
     }
 
     .mock-body {
@@ -271,14 +487,14 @@
     }
 
     .snippet {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size: 0.85rem;
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      font-size: 0.84rem;
       line-height: 1.45;
-      background: #fffaf8;
-      border: 1px solid #ffe3d6;
+      background: rgba(13, 13, 14, 0.78);
+      border: 1px dashed var(--line);
       border-radius: 12px;
       padding: 0.8rem;
-      color: #5d4a43;
+      color: #d9d3e6;
       white-space: pre-wrap;
     }
 
@@ -294,6 +510,7 @@
       font-size: 0.78rem;
       border-radius: 999px;
       padding: 0.25rem 0.6rem;
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
     }
 
     .price {
@@ -301,10 +518,11 @@
       font-weight: 800;
       color: var(--text);
       margin: 0.4rem 0;
+      font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     .faq-item {
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px dashed var(--line);
       padding: 0.65rem 0;
     }
 
@@ -321,6 +539,9 @@
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
+      font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      text-transform: none;
+      letter-spacing: 0;
     }
 
     .faq-panel {
@@ -331,18 +552,18 @@
     }
 
     .faq-item.open .faq-panel { max-height: 220px; }
-
     .faq-item.open .icon { transform: rotate(45deg); }
 
     .icon {
       font-size: 1.2rem;
       transition: transform 120ms ease;
-      color: var(--accent);
+      color: var(--accent-strong);
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
     }
 
     .cta-block {
-      background: #fff7f3;
-      border-top: 1px solid #ffe2d4;
+      background: rgba(124,58,237,0.06);
+      border-top: 1px dashed var(--line);
     }
 
     form {
@@ -365,15 +586,15 @@
 
     input[type="email"] {
       width: 100%;
-      border: 1px solid #cfcfd8;
+      border: 1px dashed rgba(124,58,237,0.5);
       border-radius: 10px;
       padding: 0.75rem 0.82rem;
       font-size: 1rem;
       color: var(--text);
+      background: rgba(255,255,255,0.03);
     }
 
-    .help,
-    .form-feedback {
+    .help, .form-feedback {
       font-size: 0.86rem;
       margin-top: 0.35rem;
     }
@@ -381,18 +602,13 @@
     .help { color: var(--muted); }
     .form-feedback { min-height: 1.2em; font-weight: 600; }
 
-    .success {
-      color: #0a7a2f;
-    }
-
-    .error {
-      color: #9c2d00;
-    }
+    .success { color: #69f0a8; }
+    .error { color: #ff8aa6; }
 
     footer {
       padding: 2rem 0 2.5rem;
-      border-top: 1px solid var(--line);
-      background: #fff;
+      border-top: 1px dashed var(--line);
+      background: rgba(13,13,14,0.8);
     }
 
     .foot {
@@ -415,6 +631,10 @@
       font-weight: 600;
     }
 
+    @media (min-width: 900px) {
+      .hero-grid { grid-template-columns: 1.05fr 0.95fr; }
+    }
+
     @media (min-width: 760px) {
       .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -425,6 +645,9 @@
     @media (max-width: 720px) {
       .nav-links a:not(.btn) { display: none; }
       .logos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      h1 { font-size: clamp(1.8rem, 8.2vw, 2.7rem); }
+      .brand-sub { display: none; }
+      .brand-title { font-size: 1.2rem; }
     }
   </style>
   <script type="application/ld+json">
@@ -448,11 +671,19 @@
 
   <header aria-label="Main header">
     <div class="container nav-wrap">
-      <a class="brand" href="#top" aria-label="Script Doctor home">Script Doctor</a>
+      <a class="brand" href="#top" aria-label="Script Doctor home">
+        <span class="brand-wrap">
+          <span class="brand-icon">⌬</span>
+          <span class="brand-meta">
+            <span class="brand-title">Short Film Script Doctor <span class="beta-pill">BETA</span></span>
+            <span class="brand-sub">Festival-grade short film screenplays — AI-optimized, human-approved.</span>
+          </span>
+        </span>
+      </a>
       <nav class="nav-links" aria-label="Primary">
-        <a href="#how-it-works">How it works</a>
+        <a href="#how-it-works">Help</a>
         <a href="#pricing">Pricing</a>
-        <a href="#signup" class="btn btn-primary">Try Script Doctor</a>
+        <a href="#signup" class="btn btn-primary">Generate Script</a>
       </nav>
     </div>
   </header>
@@ -460,17 +691,37 @@
   <main id="main">
     <section class="hero" id="top">
       <div class="container hero-card">
-        <h1>Fix your short film script before you waste a shoot day</h1>
-        <p>Generate or paste your 1–5 minute short script, then get structure analysis, pacing diagnosis, and a tighter rewrite in minutes. Script Doctor is built for short films—not features, novels, or long-form writing.</p>
-        <div class="hero-actions">
-          <a href="#signup" class="btn btn-primary">Try Script Doctor</a>
-          <a href="#how-it-works" class="btn btn-secondary">See how it works</a>
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">Short Film Script Doctor // 1–5 Minutes</p>
+            <h1>Fix your short film script before you waste a shoot day</h1>
+            <p>Generate or paste your 1–5 minute short script, then get structure analysis, pacing diagnosis, and a tighter rewrite in minutes. Script Doctor is built for short films—not features, novels, or long-form writing.</p>
+            <div class="hero-actions">
+              <a href="#signup" class="btn btn-primary">Try Script Doctor</a>
+              <a href="#how-it-works" class="btn btn-secondary">See how it works</a>
+            </div>
+          </div>
+          <div class="terminal" aria-label="Surgical diagnostic terminal">
+            <div class="terminal-head">
+              <span>Surgical Diagnostic Terminal</span>
+              <span>STATUS: AUDITING</span>
+            </div>
+            <div class="terminal-body">&gt; MODE: Paste + Diagnose
+&gt; Runtime target: 1-5 min
+&gt; Input length: 1,244 words
+&gt; Structural scan: IN PROGRESS...
+&gt; Flag: Inciting incident delayed (00:58)
+&gt; Flag: Stakes clarity low in Act 2 pivot
+&gt; Recommendation: compress setup by 4 lines
+&gt; Rebuild pass: queued</div>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="social-strip" aria-label="Social proof">
       <div class="container">
+        <p class="section-kicker">// 01 Credibility</p>
         <p><strong>Used by indie filmmakers, student directors, and creators shipping short films on tight schedules.</strong></p>
         <div class="logos" aria-label="Sample partner logos">
           <div class="logo-pill">FILM LAB</div>
@@ -483,6 +734,7 @@
 
     <section>
       <div class="container">
+        <p class="section-kicker">// 02 Problem vs Solution</p>
         <h2>Why short scripts fail—and how Script Doctor fixes them</h2>
         <div class="grid-2">
           <article class="card">
@@ -507,6 +759,7 @@
 
     <section id="how-it-works">
       <div class="container">
+        <p class="section-kicker">// 03 Workflow</p>
         <h2>How Script Doctor works</h2>
         <p>Pick the workflow that matches your stage: start from scratch or diagnose an existing short script up to ~2000 words.</p>
         <div class="grid-2">
@@ -534,20 +787,22 @@
 
     <section>
       <div class="container">
+        <p class="section-kicker">// 04 Features</p>
         <h2>Key features for 1–5 minute scripts</h2>
         <div class="grid-3">
-          <article class="card"><h3>Short-film structure enforcement</h3><p>Built-in rules keep your script aligned to compressed short-film storytelling.</p></article>
-          <article class="card"><h3>Iterative analysis → rewrite loop</h3><p>Run multiple analysis and fix cycles before locking your shooting draft.</p></article>
-          <article class="card"><h3>Beat &amp; pacing diagnosis</h3><p>Find slow openings, late turns, and overloaded scenes quickly.</p></article>
-          <article class="card"><h3>Stakes + clarity checks</h3><p>Pinpoint fuzzy motivations and unclear outcomes that weaken endings.</p></article>
-          <article class="card"><h3>Dialogue tightening suggestions</h3><p>Cut exposition, sharpen intent, and keep lines performable.</p></article>
-          <article class="card"><h3>Production-ready, shootable focus</h3><p>Prioritizes practical clarity so pages translate cleanly to set.</p></article>
+          <article class="card"><h3><span class="dept">// 01</span>Short-film structure enforcement</h3><p>Built-in rules keep your script aligned to compressed short-film storytelling.</p></article>
+          <article class="card"><h3><span class="dept">// 02</span>Iterative analysis → rewrite loop</h3><p>Run multiple analysis and fix cycles before locking your shooting draft.</p></article>
+          <article class="card"><h3><span class="dept">// 03</span>Beat &amp; pacing diagnosis</h3><p>Find slow openings, late turns, and overloaded scenes quickly.</p></article>
+          <article class="card"><h3><span class="dept">// 04</span>Stakes + clarity checks</h3><p>Pinpoint fuzzy motivations and unclear outcomes that weaken endings.</p></article>
+          <article class="card"><h3><span class="dept">// 05</span>Dialogue tightening suggestions</h3><p>Cut exposition, sharpen intent, and keep lines performable.</p></article>
+          <article class="card"><h3><span class="dept">// 06</span>Production-ready, shootable focus</h3><p>Prioritizes practical clarity so pages translate cleanly to set.</p></article>
         </div>
       </div>
     </section>
 
     <section class="use-cases">
       <div class="container">
+        <p class="section-kicker">// 05 Use Cases</p>
         <h2>Who Script Doctor is for</h2>
         <div class="grid-4">
           <article class="card"><strong>AI filmmakers</strong><p>Generate short concepts quickly and refine before production tests.</p></article>
@@ -560,6 +815,7 @@
 
     <section class="demo" aria-label="Product demo">
       <div class="container">
+        <p class="section-kicker">// 06 Live Demo</p>
         <h2>See the workflow in one screen</h2>
         <p>Script Doctor keeps input and diagnosis side by side so you can move from idea to shootable short faster.</p>
         <div class="mock-ui" role="img" aria-label="Mock Script Doctor interface with input and rewritten output">
@@ -588,39 +844,56 @@ Result: tighter pacing for 1–5 minute runtime.</div>
 
     <section id="pricing" class="pricing">
       <div class="container">
-        <h2>Pricing</h2>
-        <p>Choose the plan that fits your script volume. Every plan is optimized for short film scripts only.</p>
+        <p class="section-kicker">// 07 Pricing</p>
+        <h2>Choose Your Plan</h2>
+        <p>Start creating festival-grade short film scripts with AI. Every plan is built for 1–5 minute scripts only.</p>
         <div class="grid-3">
           <article class="card">
-            <h3>Starter</h3>
-            <p class="price">$19<span style="font-size:0.95rem;font-weight:600;color:var(--muted);">/mo</span></p>
+            <h3>Free</h3>
+            <p class="price">$0<span style="font-size:0.95rem;font-weight:600;color:var(--muted);">/forever</span></p>
             <ul class="clean">
-              <li>5 runs per day</li>
-              <li>Basic diagnostics</li>
-              <li>1 rewrite pass per script</li>
+              <li>2 AI script generations per month</li>
+              <li>2 diagnose/fix runs on your own scripts per month</li>
+              <li>2 free regenerations per script</li>
+              <li>Custom fix instructions</li>
+              <li>All genres and runtimes (1–5 min)</li>
+              <li>Fountain and PDF export</li>
+              <li>AI Shot Director access</li>
             </ul>
-            <p><a class="btn btn-secondary" href="#signup">Get Starter</a></p>
+            <p><a class="btn btn-secondary" href="#signup">Sign Up Free</a></p>
           </article>
           <article class="card">
             <span class="badge">Most Popular</span>
-            <h3>Pro</h3>
-            <p class="price">$49<span style="font-size:0.95rem;font-weight:600;color:var(--muted);">/mo</span></p>
+            <h3>Starter</h3>
+            <p class="price">$7<span style="font-size:0.95rem;font-weight:600;color:var(--muted);">/mo</span></p>
             <ul class="clean">
-              <li>25 runs per day</li>
-              <li>Advanced diagnostics + beat scoring</li>
-              <li>Up to 6 analysis → rewrite loops</li>
+              <li>15 AI script generations per month</li>
+              <li>Unlimited diagnose/fix runs on your own scripts</li>
+              <li>2 free regenerations per script</li>
+              <li>Custom fix instructions</li>
+              <li>All genres and runtimes (1–5 min)</li>
+              <li>Fountain and PDF export</li>
+              <li>Script history saved</li>
+              <li>70% OFF AI Shot Director subscriptions</li>
             </ul>
-            <p><a class="btn btn-primary" href="#signup">Get Pro</a></p>
+            <p><a class="btn btn-primary" href="#signup">Buy Starter Plan</a></p>
           </article>
           <article class="card">
-            <h3>Studio</h3>
-            <p class="price">$99<span style="font-size:0.95rem;font-weight:600;color:var(--muted);">/mo</span></p>
+            <h3>Pro</h3>
+            <p class="price">$17<span style="font-size:0.95rem;font-weight:600;color:var(--muted);">/mo</span></p>
             <ul class="clean">
-              <li>100 runs per day</li>
-              <li>Highest loop limits + priority queue</li>
-              <li>Team-friendly script management</li>
+              <li>40 AI script generations per month</li>
+              <li>Unlimited diagnose/fix runs on your own scripts</li>
+              <li>2 free regenerations per script</li>
+              <li>Custom fix instructions</li>
+              <li>All genres and runtimes (1–5 min)</li>
+              <li>Fountain and PDF export</li>
+              <li>Script history saved</li>
+              <li>70% OFF AI Shot Director subscriptions</li>
+              <li>Priority support</li>
+              <li>Early access to new features</li>
             </ul>
-            <p><a class="btn btn-secondary" href="#signup">Get Studio</a></p>
+            <p><a class="btn btn-secondary" href="#signup">Buy Pro Plan</a></p>
           </article>
         </div>
       </div>
@@ -628,31 +901,32 @@ Result: tighter pacing for 1–5 minute runtime.</div>
 
     <section>
       <div class="container">
+        <p class="section-kicker">// 08 FAQ</p>
         <h2>Frequently asked questions</h2>
         <div class="faq" aria-label="Frequently asked questions">
           <article class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">Can I paste my own script?<span class="icon">+</span></button>
-            <div class="faq-panel"><p>Yes. Use Paste + Diagnose and submit your existing short script for analysis and rewrite suggestions.</p></div>
+            <button class="faq-trigger" aria-expanded="false">What counts as a script generation?<span class="icon">+</span></button>
+            <div class="faq-panel"><p>Each new short script created from a prompt counts as one generation. Each generation still includes two free regenerations to refine the draft before using another generation credit.</p></div>
           </article>
           <article class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">How long can my script be?<span class="icon">+</span></button>
-            <div class="faq-panel"><p>Paste mode supports scripts up to about 2000 words, designed for roughly 1–5 minute short films.</p></div>
+            <button class="faq-trigger" aria-expanded="false">Can I upgrade or downgrade my plan?<span class="icon">+</span></button>
+            <div class="faq-panel"><p>Yes. You can change plans anytime. Plan changes apply at the start of your next billing cycle.</p></div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">What formats can I export to?<span class="icon">+</span></button>
+            <div class="faq-panel"><p>All plans support Fountain export (industry standard) and PDF export for easy sharing and production use.</p></div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">How do Script Analysis and Script Polishing work?<span class="icon">+</span></button>
+            <div class="faq-panel"><p>After generating or pasting a short script, Script Doctor analyzes structure, pacing, stakes, and clarity. You can then polish and rewrite repeatedly based on your plan limits.</p></div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">What is AI Shot Director?<span class="icon">+</span></button>
+            <div class="faq-panel"><p>AI Shot Director is the companion production planning tool for turning a short script into practical shot lists and timing notes. Paid Script Doctor plans include a 70% discount on its subscription.</p></div>
           </article>
           <article class="faq-item">
             <button class="faq-trigger" aria-expanded="false">Does it write feature films?<span class="icon">+</span></button>
-            <div class="faq-panel"><p>No. Script Doctor is specifically for short-film scripts and does not target feature-length projects.</p></div>
-          </article>
-          <article class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">What structure model does it use?<span class="icon">+</span></button>
-            <div class="faq-panel"><p>It enforces a compressed 3-act structure and modified Hero’s Journey logic adapted for short runtime storytelling.</p></div>
-          </article>
-          <article class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">Can I iterate multiple rewrites?<span class="icon">+</span></button>
-            <div class="faq-panel"><p>Yes. The Generate + Refine workflow supports iterative analysis → rewrite loops, with limits based on plan.</p></div>
-          </article>
-          <article class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">Will this help before production?<span class="icon">+</span></button>
-            <div class="faq-panel"><p>That is the core goal: diagnose script issues early so you avoid expensive shoot-day surprises.</p></div>
+            <div class="faq-panel"><p>No. Script Doctor is specifically designed for 1–5 minute short film scripts and is not for feature-length screenplays.</p></div>
           </article>
         </div>
       </div>
