@@ -451,6 +451,26 @@
       margin: 0 0 0.5rem;
     }
 
+    .pill-soon {
+      display: inline-block;
+      margin-left: 0.55rem;
+      padding: 0.14rem 0.46rem;
+      border-radius: 999px;
+      border: 1px dashed rgba(183,148,255,0.8);
+      color: #d8c3ff;
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      font-size: 0.68rem;
+      vertical-align: middle;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .roadmap-note {
+      margin-top: 0.9rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
     ol.steps { padding-left: 1.2rem; }
 
     .demo {
@@ -683,7 +703,7 @@
       <nav class="nav-links" aria-label="Primary">
         <a href="#how-it-works">Help</a>
         <a href="#pricing">Pricing</a>
-        <a href="#signup" class="btn btn-primary">Generate Script</a>
+        <a href="https://filmai.abacusai.app/" class="btn btn-primary">Try Script Doctor</a>
       </nav>
     </div>
   </header>
@@ -697,7 +717,7 @@
             <h1>Fix your short film script before you waste a shoot day</h1>
             <p>Generate or paste your 1–5 minute short script, then get structure analysis, pacing diagnosis, and a tighter rewrite in minutes. Script Doctor is built for short films—not features, novels, or long-form writing.</p>
             <div class="hero-actions">
-              <a href="#signup" class="btn btn-primary">Try Script Doctor</a>
+              <a href="https://filmai.abacusai.app/" class="btn btn-primary">Try Script Doctor</a>
               <a href="#how-it-works" class="btn btn-secondary">See how it works</a>
             </div>
           </div>
@@ -800,9 +820,26 @@
       </div>
     </section>
 
+    <section class="roadmap">
+      <div class="container">
+        <p class="section-kicker">// 05 Roadmap</p>
+        <h2>Roadmap (Coming Soon)<span class="pill-soon">Coming soon</span></h2>
+        <p>These features are on the roadmap and not included in the current version.</p>
+        <div class="grid-3">
+          <article class="card"><h3>Structural score (0–100)</h3><p>A single score that reflects structure, pacing, and clarity.</p></article>
+          <article class="card"><h3>Beat breakdown visualization</h3><p>See your story beats mapped in a compressed 3-act timeline.</p></article>
+          <article class="card"><h3>Runtime pacing map</h3><p>Spot slow sections and tighten timing for a 1–5 minute runtime.</p></article>
+          <article class="card"><h3>Commercial viability indicator</h3><p>A quick read on hook strength, clarity, and audience pull.</p></article>
+          <article class="card"><h3>Emotional arc graph</h3><p>Track tension and emotional peaks across the short.</p></article>
+          <article class="card"><h3>Dialogue density check (short-film optimized)</h3><p>Detect overtalking and rebalance action vs. dialogue.</p></article>
+        </div>
+        <p class="roadmap-note">Want early access? Join the <a href="#signup">waitlist</a>.</p>
+      </div>
+    </section>
+
     <section class="use-cases">
       <div class="container">
-        <p class="section-kicker">// 05 Use Cases</p>
+        <p class="section-kicker">// 06 Use Cases</p>
         <h2>Who Script Doctor is for</h2>
         <div class="grid-4">
           <article class="card"><strong>AI filmmakers</strong><p>Generate short concepts quickly and refine before production tests.</p></article>
@@ -815,7 +852,7 @@
 
     <section class="demo" aria-label="Product demo">
       <div class="container">
-        <p class="section-kicker">// 06 Live Demo</p>
+        <p class="section-kicker">// 07 Live Demo</p>
         <h2>See the workflow in one screen</h2>
         <p>Script Doctor keeps input and diagnosis side by side so you can move from idea to shootable short faster.</p>
         <div class="mock-ui" role="img" aria-label="Mock Script Doctor interface with input and rewritten output">
@@ -844,7 +881,7 @@ Result: tighter pacing for 1–5 minute runtime.</div>
 
     <section id="pricing" class="pricing">
       <div class="container">
-        <p class="section-kicker">// 07 Pricing</p>
+        <p class="section-kicker">// 08 Pricing</p>
         <h2>Choose Your Plan</h2>
         <p>Start creating festival-grade short film scripts with AI. Every plan is built for 1–5 minute scripts only.</p>
         <div class="grid-3">
@@ -901,7 +938,7 @@ Result: tighter pacing for 1–5 minute runtime.</div>
 
     <section>
       <div class="container">
-        <p class="section-kicker">// 08 FAQ</p>
+        <p class="section-kicker">// 09 FAQ</p>
         <h2>Frequently asked questions</h2>
         <div class="faq" aria-label="Frequently asked questions">
           <article class="faq-item">
@@ -936,18 +973,7 @@ Result: tighter pacing for 1–5 minute runtime.</div>
       <div class="container">
         <h2>Get your short script shoot-ready</h2>
         <p>Join Script Doctor and stress-test your 1–5 minute script before cameras roll.</p>
-        <form id="emailForm" novalidate>
-          <div class="field-wrap">
-            <label for="email">Email address</label>
-            <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="formHelp formFeedback" placeholder="you@studio.com" />
-            <p id="formHelp" class="help">No spam. Unsubscribe anytime.</p>
-            <p id="formFeedback" class="form-feedback" role="status" aria-live="polite"></p>
-          </div>
-          <div>
-            <label for="submitBtn" style="opacity:0;">Submit</label>
-            <button id="submitBtn" type="submit" class="btn btn-primary">Try Script Doctor</button>
-          </div>
-        </form>
+        <p><a class="btn btn-primary" href="https://filmai.abacusai.app/">Try Script Doctor</a></p>
       </div>
     </section>
   </main>
@@ -966,28 +992,6 @@ Result: tighter pacing for 1–5 minute runtime.</div>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    const form = document.getElementById('emailForm');
-    const email = document.getElementById('email');
-    const feedback = document.getElementById('formFeedback');
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const value = email.value.trim();
-      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-
-      if (!value || !emailOk) {
-        feedback.textContent = 'Please enter a valid email address.';
-        feedback.className = 'form-feedback error';
-        email.setAttribute('aria-invalid', 'true');
-        email.focus();
-        return;
-      }
-
-      feedback.textContent = "You're on the list. We'll send your access details soon.";
-      feedback.className = 'form-feedback success';
-      email.setAttribute('aria-invalid', 'false');
-      form.reset();
-    });
 
     document.querySelectorAll('.faq-trigger').forEach(function(btn){
       btn.addEventListener('click', function(){
