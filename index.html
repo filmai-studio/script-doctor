@@ -392,6 +392,145 @@
       background: var(--surface-soft);
     }
 
+
+    .diagnostic-engine {
+      padding-top: 1.2rem;
+    }
+
+    .engine-wrap {
+      display: grid;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .engine-side-label {
+      border: 1px dashed var(--line);
+      border-radius: 14px;
+      background: var(--surface-soft);
+      padding: 1rem;
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .engine-side-label strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 0.35rem;
+      font-size: 0.9rem;
+    }
+
+    .analysis-dashboard {
+      border: 1px dashed var(--line);
+      border-radius: 16px;
+      background: var(--glass);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 1rem;
+    }
+
+    .analysis-header {
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      text-align: center;
+      padding: 1rem 0.8rem;
+      background: linear-gradient(160deg, rgba(124,58,237,0.24), rgba(20,20,23,0.35));
+      margin-bottom: 0.9rem;
+    }
+
+    .analysis-score {
+      font-size: clamp(2.3rem, 6vw, 3.2rem);
+      line-height: 1;
+      font-weight: 800;
+      color: #cba8ff;
+      letter-spacing: -0.03em;
+    }
+
+    .analysis-score small {
+      font-size: 1rem;
+      color: var(--muted);
+    }
+
+    .analysis-stars {
+      color: #fbbf24;
+      font-size: 1.1rem;
+      margin-left: 0.35rem;
+    }
+
+    .analysis-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    }
+
+    .format-notes {
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 0.85rem;
+      margin-bottom: 0.85rem;
+      background: var(--surface-soft);
+    }
+
+    .format-notes h3 { font-size: 1rem; margin-bottom: 0.55rem; }
+
+    .format-notes p { font-size: 0.88rem; margin-bottom: 0.5rem; }
+
+    .diag-list {
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 0.85rem;
+      margin-bottom: 0.75rem;
+      background: var(--surface-soft);
+    }
+
+    .diag-list h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.45rem;
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    }
+
+    .diag-list ul { margin: 0; padding-left: 1rem; color: var(--muted); }
+    .diag-list li { margin-bottom: 0.3rem; }
+
+    .diag-strengths h3 { color: #22c55e; }
+    .diag-weaknesses h3 { color: #fb923c; }
+    .diag-improvements h3 { color: #facc15; }
+
+    .diag-progress {
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 0.85rem;
+      background: var(--surface-soft);
+    }
+
+    .progress-row { margin-bottom: 0.7rem; }
+    .progress-row:last-child { margin-bottom: 0; }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.8rem;
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .progress-track {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      transition: width 900ms cubic-bezier(.2,.8,.2,1);
+      background: linear-gradient(90deg, #7c3aed, #a78bfa);
+    }
+
     .social-strip {
       border-top: 1px dashed var(--line);
       border-bottom: 1px dashed var(--line);
@@ -486,8 +625,6 @@
     }
 
     ol.steps { padding-left: 1.2rem; }
-
-
 
     .pill-soon {
       display: inline-block;
@@ -693,6 +830,7 @@
 
     @media (min-width: 900px) {
       .hero-grid { grid-template-columns: 1.05fr 0.95fr; }
+      .engine-wrap { grid-template-columns: 0.33fr 0.67fr; }
     }
 
     @media (min-width: 760px) {
@@ -780,6 +918,62 @@
       </div>
     </section>
 
+    <section class="diagnostic-engine" id="diagnostic-engine">
+      <div class="container">
+        <h2>The Diagnostic Engine</h2>
+        <div class="engine-wrap">
+          <aside class="engine-side-label">
+            <strong>BRUTAL HONESTY FOR BETTER STORIES.</strong>
+            The engine identifies structural rot so you don't have to.
+          </aside>
+          <div class="analysis-dashboard" aria-label="Script Analysis dashboard preview">
+            <div class="analysis-header">
+              <div class="analysis-score"><span id="analysisScore" data-target="4.1">0.0</span><small>/5</small><span class="analysis-stars">★</span></div>
+              <p class="analysis-sub">Overall Rating (0-5 Stars) · Estimated Runtime: &lt; 5 minutes</p>
+            </div>
+            <article class="format-notes">
+              <h3>Format-Specific Notes (Short Script)</h3>
+              <p><strong>Runtime Fit:</strong> Cleanly built for a 1–5 minute short with tight pacing and minimal filler.</p>
+              <p><strong>Visual Clarity:</strong> Action lines are concise and shootable without heavy exposition.</p>
+              <p><strong>Beat Structure:</strong> Inciting moment lands early, escalation rises, and final beat resolves fast.</p>
+            </article>
+            <article class="diag-list diag-strengths">
+              <h3>✔ Strengths</h3>
+              <ul>
+                <li>Strong opening hook and clear central conflict.</li>
+                <li>Emotional motivation lands without extra exposition.</li>
+                <li>Scene progression stays readable and production-friendly.</li>
+              </ul>
+            </article>
+            <article class="diag-list diag-weaknesses">
+              <h3>▲ Weaknesses</h3>
+              <ul>
+                <li>Middle beats briefly over-explain character intent.</li>
+                <li>Dialogue density rises in one exchange and slows pace.</li>
+              </ul>
+            </article>
+            <article class="diag-list diag-improvements">
+              <h3>⚠ Areas for Improvement</h3>
+              <ul>
+                <li>Trim one dialogue block to increase action momentum.</li>
+                <li>Sharpen final line to elevate emotional payoff.</li>
+              </ul>
+            </article>
+            <article class="diag-progress">
+              <div class="progress-row">
+                <div class="progress-label"><span>Dialogue vs. Action Balance</span><span>68%</span></div>
+                <div class="progress-track"><div class="progress-fill" data-progress="68"></div></div>
+              </div>
+              <div class="progress-row">
+                <div class="progress-label"><span>Pacing Efficiency</span><span>82%</span></div>
+                <div class="progress-track"><div class="progress-fill" data-progress="82"></div></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="social-strip" aria-label="Social proof">
       <div class="container">
         <p class="section-kicker">// 01 Credibility</p>
@@ -860,7 +1054,6 @@
         </div>
       </div>
     </section>
-
 
     <section class="roadmap">
       <div class="container">
@@ -1115,6 +1308,46 @@ Result: tighter pacing for 1–5 minute runtime.</div>
       const current = document.documentElement.getAttribute('data-theme') || 'dark';
       applyTheme(current === 'dark' ? 'light' : 'dark', true);
     });
+
+    const diagnosticSection = document.getElementById('diagnostic-engine');
+    const scoreEl = document.getElementById('analysisScore');
+    const progressBars = Array.from(document.querySelectorAll('.progress-fill'));
+    let diagnosticAnimated = false;
+
+    function animateDiagnostic() {
+      if (diagnosticAnimated || !scoreEl) return;
+      diagnosticAnimated = true;
+      const target = Number(scoreEl.dataset.target || '4.1');
+      const start = performance.now();
+      const duration = 1100;
+
+      function step(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const value = target * progress;
+        scoreEl.textContent = value.toFixed(1);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        }
+      }
+
+      requestAnimationFrame(step);
+      progressBars.forEach((bar) => {
+        const pct = bar.dataset.progress || '0';
+        bar.style.width = pct + '%';
+      });
+    }
+
+    if (diagnosticSection) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateDiagnostic();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.35 });
+      observer.observe(diagnosticSection);
+    }
 
     document.querySelectorAll('.faq-trigger').forEach(function(btn){
       const panel = document.getElementById(btn.getAttribute('aria-controls'));
